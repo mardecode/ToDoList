@@ -1,11 +1,21 @@
 <template>
-    <div class="todo" v-bind:class="{completed: todo.completed}">
-        <div class="todo-body" >
-            <input type="checkbox" v-bind:checked="todo.completed ? 'checked': '' " v-on:change="checkTodo">
-                {{todo.title}}
+    <div class="todo" >
+        <div class="todo__check" >
+            <input type="checkbox" v-bind:checked="todo.completed ? 'checked': '' " v-on:change="checkTodo" id="checkboxt">
+
+                <label for="checkboxt">
+                    <span class="material-icons todo__check__span1">check_box_outline_blank</span>
+                    <span class="material-icons todo__check__span2">check_box</span>
+                </label>
+          
         </div>
-        <div class="todo-actions">
-            <button @click="$emit('delete-todo',todo.id)" >Eliminar</button>
+        <div class="todo__info" v-bind:class="{completed: todo.completed}">
+            <p>{{todo.title}}</p>
+            <button @click="$emit('delete-todo',todo.id)" >
+     
+                <span class="material-icons">delete</span>
+      
+            </button>
 
         </div>
     </div>
@@ -26,43 +36,59 @@ export default {
 
 <style  scoped>
     .todo{
-        border-bottom: solid  1px #cccccc;
-        padding: 10px;
         display: flex;
-
+        font-family: 'Comfortaa', cursive;
+        color: #282A2C;
     }
-    .todo:not(.completed):hover{
+    .todo__info:not(.completed):hover{
         background-color: #eeeeee;
-        /* cursor: */
     }
     .completed{
-        color: #cccccc;
+        color: #636363;
         text-decoration: line-through;
     }
-    .completed .todo-body{
-        text-decoration: line-through;
+    .todo__check{
+        margin: auto;
     }
-    .todo-body .todo-actions{
-        display: inline-block;
-        vertical-align: top;
+    .todo__check input{
+        display: none;
     }
-    .todo-body{
-        width: 85%;
+    .todo__check span{
+        color: #49D7AF;
+        align-self:center;
+        padding-right: 10px;
+        padding-bottom: 15px;
+        font-size: 32px;
     }
-    .todo-actions{
-        padding: 0 10px;
-        width: 10%;
-    }
-    button{
-        border: none;
-        border-radius: 3px;
-        padding: 10px;
-        background-color: #cccccc;
-        color: black;
-    }
-    button:hover{
-        background-color: #da2020;
-        color: white;
-    }
+  .todo__info{
+      display: grid;
+      grid-template-columns: 80% 20%;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 30px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      align-items: center;
+  }
+  .todo__info button{
+      justify-self: end;
+      /* align-self: center; */
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      border: 0px solid #fff ;
+      background-color: #F4686C;
+  }
+  .todo__info  span{
+      color: #ffffff;
+  }
+  .todo__info  p{
+      margin: 0;
+  }
+
+    
+  
 
 </style>
