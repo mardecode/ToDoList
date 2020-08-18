@@ -4,7 +4,7 @@
       <Search v-on:query-change="querySearch"/>
     </div>
     <div id="main-container">
-      <h2>To-dos</h2>
+      <h2 class="titulo">To-Do List</h2>
       <TodoAdd  v-on:add-todo="addTodo"/>
       <Todos v-bind:todoslist="copyTodos" v-on:delete-todo="deleteTodo"/>
     </div>
@@ -77,26 +77,36 @@ export default {
 </script>
 
 <style>
-*{
-  box-sizing: border-box;
-}
+
 body{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.5em;
+  font-family: 'Comfortaa', cursive;
   padding: 0;
   margin: 0;
 }
 
 #main-container{
-  border: solid 1px #cccccc;
-  width: 600px;
-  margin: 100px auto;
+  width: 40%;
+  margin: 20px auto 100px auto;
 }
 #header{
-  background-color: black;
-  padding: 10px;
+  /* background-color: black; */
+  padding-top: 60px;
 }
+
 h2{
   padding:  0 10px;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  font-size: 36px;
+}
+@media screen and (max-width: 900px){
+  #main-container{
+    width: 70%;
+  }
+}
+@media screen and (max-width: 650px){
+  #main-container{
+    width: 90%;
+  }
 }
 </style>

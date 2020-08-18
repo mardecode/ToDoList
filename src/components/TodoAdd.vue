@@ -1,7 +1,8 @@
 <template>
     <div class="add-container">
         <form action="" @submit="addTodo">
-            <input type="text" v-model="title">
+            <input type="text" v-model="title" placeholder="Agregar nuevo To-Do">
+            <hr>
         </form>
     </div>
 </template>
@@ -32,14 +33,25 @@ export default {
 </script>
 
 <style scoped>
-    .add-container{
-        padding: 10px;
-    }
-    input{
+    
+    .add-container input{
         padding: 10px;
         outline: none;
         border: solid 1px #cccccc;
-        width: 100%;
+        
+         box-sizing: border-box;
+         width: 100%;
+         border-radius: 23px;
+        height: 51px;
+        font-family: 'Comfortaa', cursive;
+        font-size: 20px;
+        border: 0px solid #ffffff;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        margin-bottom:20px;
+    }
+    .add-container hr{
+        border: 0.5px solid #49D7AF;
+        margin-bottom: 20px;
     }
 </style>>
 

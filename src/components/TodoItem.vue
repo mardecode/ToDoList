@@ -12,9 +12,7 @@
         <div class="todo__info" v-bind:class="{completed: todo.completed}">
             <p>{{todo.title}}</p>
             <button @click="$emit('delete-todo',todo.id)" >
-     
                 <span class="material-icons">delete</span>
-      
             </button>
 
         </div>
@@ -64,6 +62,10 @@ export default {
         font-size: 32px;
         /* background-color: red; */
     }
+    .todo__check span:hover{
+        color: #33cfa3;
+        cursor: pointer;
+    }
   .todo__info{
       display: grid;
       grid-template-columns: 80% 20%;
@@ -85,6 +87,10 @@ export default {
       border: 0px solid #fff ;
       background-color: #F4686C;
   }
+   .todo__info button:hover{
+       background-color: #ff5154;
+       cursor: pointer;
+   }
   .todo__info  span{
       color: #ffffff;
   }
