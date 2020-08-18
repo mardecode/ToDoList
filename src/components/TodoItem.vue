@@ -1,11 +1,11 @@
 <template>
     <div class="todo" >
         <div class="todo__check" >
-            <input type="checkbox" v-bind:checked="todo.completed ? 'checked': '' " v-on:change="checkTodo" id="checkboxt">
+            <input type="checkbox" v-bind:checked="todo.completed ? 'checked': '' " v-on:change="checkTodo" v-bind:id="todo.id">
 
-                <label for="checkboxt">
-                    <span class="material-icons todo__check__span1">check_box_outline_blank</span>
-                    <span class="material-icons todo__check__span2">check_box</span>
+                <label v-bind:for="todo.id">
+                    <span class="material-icons " v-bind:class="{checkOculto: todo.completed}">check_box_outline_blank</span>
+                    <span class="material-icons " v-bind:class="{checkOculto: !todo.completed}">check_box</span>
                 </label>
           
         </div>
@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style  scoped>
+.checkOculto{
+    display: none;
+}
     .todo{
         display: flex;
         font-family: 'Comfortaa', cursive;
@@ -44,7 +47,7 @@ export default {
         background-color: #eeeeee;
     }
     .completed{
-        color: #636363;
+        color: rgba(99, 99, 99, 0.79);
         text-decoration: line-through;
     }
     .todo__check{
@@ -59,6 +62,7 @@ export default {
         padding-right: 10px;
         padding-bottom: 15px;
         font-size: 32px;
+        /* background-color: red; */
     }
   .todo__info{
       display: grid;
