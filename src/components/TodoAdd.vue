@@ -53,5 +53,11 @@ export default {
         border: 0.5px solid #49D7AF;
         margin-bottom: 20px;
     }
+    @media screen and (max-width: 650px){
+        .add-container input{
+            font-size: 14px;
+            height: 40px;
+        }
+    }
 </style>>
 

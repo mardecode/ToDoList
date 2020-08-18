@@ -43,6 +43,10 @@ export default {
             #search-container{
                 width: 90%;
             }
+            input{
+                font-size: 14px;
+                height: 40px;
+            }
 
     }
 </style>

@@ -97,7 +97,24 @@ export default {
   .todo__info  p{
       margin: 0;
   }
-
+    @media screen and (max-width: 650px){
+        .todo__info{
+            font-size: 14px;
+        }
+        .todo__info button{
+            justify-self: end;
+            /* align-self: center; */
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
+            border: 0px solid #fff ;
+            background-color: #F4686C;
+        }
+        .todo__info  span{
+            color: #ffffff;
+            font-size: 14px;
+        }
+    }
     
   
 

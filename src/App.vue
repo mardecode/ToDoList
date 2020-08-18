@@ -105,6 +105,9 @@ h2{
   }
 }
 @media screen and (max-width: 650px){
+  h2{
+    font-size: 26px;
+  }
   #main-container{
     width: 90%;
   }
