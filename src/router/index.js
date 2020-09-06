@@ -1,33 +1,42 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import App from '../App.vue'
-// import Login from '../components/Login'
-import Login from '@/components/Login'
-import MainTodo from '../views/MainTodo'
+
+import {auth} from "@/firebase"
 
 Vue.use(VueRouter)
 
   const routes = [
-    
+  {
+    path: '/ingresar',
+    name: 'Ingresar',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Ingresar.vue')
+  },
   {
     path: '/',
-    name: 'Home',
-    component: Login
-  },
-  {
-    path: '/main',
-    name:'MainTodo',
-    component: MainTodo
-  },
-  // {
-  //   path: '/test',
-  //   name:'Login',
-  //   component: MainTodo
-  // },
+    name: 'Inicio',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Inicio.vue'),
+    meta:{requiresAuth:true}
+  }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  const usuario = auth.currentUser
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    
+    if (usuario) {
+      next()
+    }else{
+      next({name:'Ingresar'})
+    }
+  }else{
+    next()
+  }
 })
 
 export default router
