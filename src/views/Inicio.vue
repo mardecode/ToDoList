@@ -3,8 +3,9 @@
         Barra
         Buscador
         br
-        h1 Bienvenida {{usuario.nombre}} as
+        
         button.boton New to-do
+        button.boton New habit
         br
         br
         Todo(texto='No procrastinar' isChecked=true)
