@@ -9,8 +9,6 @@
 </template>
 
 <style lang="sass">
-
-  
   
     .router-link-exact-active
       color: #42b983
