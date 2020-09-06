@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		usuario: "",
+		habits: [],
 	},
 	mutations: {
 		newUser(state, payload) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
 			} else {
 				state.usuario = payload;
 			}
+		},
+		setHabits(state, payload) {
+			state.habits = payload;
 		},
 	},
 	actions: {
@@ -56,6 +60,37 @@ export default new Vuex.Store({
 				console.log(user);
 				context.dispatch("setUser", user);
 				router.push({ name: "Inicio" });
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async createHabit(context, newHabit) {
+			try {
+				// console.log(newHabit);
+				const createdHabit = await db
+					.collection("habits")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.add(newHabit);
+				console.log(createdHabit);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async getHabits(ctx) {
+			try {
+				// console.log("aaaaaaa", this.state.usuario.uid);
+				const listHabits = await db
+					.collection("habits")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.get();
+				const newlistHabits = [];
+				console.log(listHabits);
+				listHabits.forEach((doc) => {
+					newlistHabits.push(doc.data());
+				});
+				ctx.commit("setHabits", newlistHabits);
 			} catch (error) {
 				console.log(error);
 			}
