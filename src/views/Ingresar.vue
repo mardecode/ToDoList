@@ -19,12 +19,12 @@ import { firebase, auth } from "@/firebase";
 import { mapState, mapMutations, mapActions } from "vuex";
 import router from "@/router";
 export default {
-  name: "Ingresar",
-  methods: {
-    ...mapActions(["setUser", "google"]),
+	name: "Ingresar",
+	methods: {
+		...mapActions(["setUser", "google"]),
 
-    /* -------------------------------------------------------------------------- */
-  },
+		/* -------------------------------------------------------------------------- */
+	},
 };
 </script>
 

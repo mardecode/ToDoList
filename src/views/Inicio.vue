@@ -10,27 +10,25 @@
 </template>
 
 <script>
-import Barra from '@/components/Barra.vue'
-import Buscador from '@/components/Buscador.vue'
+import Barra from "@/components/Barra.vue";
+import Buscador from "@/components/Buscador.vue";
 import { mapState } from "vuex";
 
 export default {
-  name: 'Inicio',
-  components:{
-    Barra, Buscador
-  },
-  methods: {
-    },
-  computed: {
-    ...mapState(['usuario'])
-  },
-
-}
+	name: "Inicio",
+	components: {
+		Barra,
+		Buscador,
+	},
+	methods: {},
+	computed: {
+		...mapState(["usuario"]),
+	},
+};
 </script>
 
 <style lang="sass">
-  @import '@/assets/sass/main'
-  .about
-    background-color: $color-primario
+@import '@/assets/sass/main'
+.about
+  background-color: $color-primario
 </style>
-

@@ -46,7 +46,6 @@ export default new Vuex.Store({
 			}
 		},
 		async google() {
-			// const provider = new firebase.auth.GoogleAuthProvider();
 			console.log("botsdon de ingreso");
 			const provider = new firebase.auth.GoogleAuthProvider();
 			firebase.auth().languageCode = "es";
