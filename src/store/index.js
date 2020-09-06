@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { auth, db } from "@/firebase";
+import { firebase, auth, db } from "@/firebase";
+
 import router from "@/router";
 
 Vue.use(Vuex);
@@ -45,7 +46,7 @@ export default new Vuex.Store({
 				console.log(error);
 			}
 		},
-		async google() {
+		async google(context) {
 			console.log("botsdon de ingreso");
 			const provider = new firebase.auth.GoogleAuthProvider();
 			firebase.auth().languageCode = "es";
@@ -53,7 +54,7 @@ export default new Vuex.Store({
 				const result = await firebase.auth().signInWithPopup(provider);
 				const user = result.user;
 				console.log(user);
-				this.setUser(user);
+				context.dispatch("setUser", user);
 				router.push({ name: "Inicio" });
 			} catch (error) {
 				console.log(error);

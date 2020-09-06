@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { firebase, auth } from "@/firebase";
 import { mapState, mapMutations, mapActions } from "vuex";
 import router from "@/router";
 export default {
