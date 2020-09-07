@@ -10,6 +10,7 @@ export default new Vuex.Store({
 	state: {
 		usuario: "",
 		habits: [],
+		todos: [],
 	},
 	mutations: {
 		newUser(state, payload) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
 		},
 		setHabits(state, payload) {
 			state.habits = payload;
+		},
+		setTodos(state, payload) {
+			state.todos = payload;
 		},
 	},
 	actions: {
@@ -91,6 +95,35 @@ export default new Vuex.Store({
 					newlistHabits.push(doc.data());
 				});
 				ctx.commit("setHabits", newlistHabits);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async getTodos(ctx) {
+			try {
+				const listTodos = await db
+					.collection("todos")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.orderBy("endDate", "asc")
+					.get();
+				const newlistTodos = [];
+				listTodos.forEach((doc) => {
+					newlistTodos.push(doc.data());
+				});
+				ctx.commit("setTodos", newlistTodos);
+			} catch (error) {
+				console.log(error);
+				console.log("hola hola");
+			}
+		},
+		async createTodo(context, newTodo) {
+			try {
+				const createTodo = await db
+					.collection("todos")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.add(newTodo);
 			} catch (error) {
 				console.log(error);
 			}

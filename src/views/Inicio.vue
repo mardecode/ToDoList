@@ -3,18 +3,22 @@
 	Barra
 	Buscador
 	br
-	h1 Bienvenida {{ usuario.nombre }} as
-	button.boton New to-do
-	button.boton(@click="showHabitModal") New Habit
+	h1 Bienvenida {{ usuario.nombre }}
+	div.creacion
+		button.boton(@click="showTodoModal") New to-do
+		button.boton(@click="showHabitModal") New Habit
+	h2 To-dos
 
-	Todo(texto="No procrastinar", isChecked)
-	Todo(texto="No procrastinar", isChecked=false)
+	template(v-for="todo in todos")
+		Todo(:texto="todo.name", :isChecked="todo.check")
+
 
 	h2 Habits
 	template(v-for="h in habits")
 		Todo(:texto="h.name", isChecked=false)
 
 	CreateHabit
+	CreateTodo
 	
 </template>
 
@@ -22,6 +26,7 @@
 import Barra from "@/components/Barra.vue";
 import Buscador from "@/components/Buscador.vue";
 import CreateHabit from "@/components/CreateHabit.vue";
+import CreateTodo from "@/components/CreateTodo.vue";
 import { mapState, mapActions } from "vuex";
 import Todo from "@/components/Todo.vue";
 
@@ -34,21 +39,26 @@ export default {
 		Barra,
 		Buscador,
 		Todo,
-		CreateHabit
+		CreateHabit,
+		CreateTodo,
 	},
 
 	mounted() {
 		this.getHabits();
+		this.getTodos();
 	},
 
 	methods: {
-		...mapActions(["getHabits"]),
+		...mapActions(["getHabits", "getTodos"]),
 		showHabitModal() {
 			this.$modal.show("habit-modal");
 		},
+		showTodoModal() {
+			this.$modal.show("todo-modal");
+		},
 	},
 	computed: {
-		...mapState(["usuario", "habits"]),
+		...mapState(["usuario", "habits", "todos"]),
 	},
 };
 </script>
@@ -59,4 +69,12 @@ export default {
 	background-color: $color-primario
 .btnActive
 	background-color: $color-primario
+.creacion
+	margin-right: 30px
+	margin-left: 30px
+	display: grid
+	grid-template-columns: 1fr 1fr
+	// justify-items: center
+	align-items: center
+	grid-gap: 15px
 </style>
