@@ -1,9 +1,10 @@
 <template lang="pug">
 .inicio
 	Barra
+	br
 	Buscador
 	br
-	h1 Bienvenida {{ usuario.nombre }}
+	br
 	div.creacion
 		button.boton(@click="showTodoModal") New to-do
 		button.boton(@click="showHabitModal") New Habit
