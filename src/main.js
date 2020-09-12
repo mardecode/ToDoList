@@ -8,13 +8,14 @@ import VModal from "vue-js-modal";
 Vue.config.productionTip = false;
 Vue.use(VModal);
 
-auth.onAuthStateChanged(async (user) => {
+auth.onAuthStateChanged((user) => {
 	if (user) {
-		await store.dispatch("setUser", user);
+		store.commit("newUser", user);
+		store.dispatch("setUser", user);
 	} else {
-		await store.dispatch("setUser", user);
+		store.commit("newUser", user);
+		// await store.dispatch("setUser", user);
 	}
-
 	new Vue({
 		router,
 		store,
