@@ -2,9 +2,9 @@
 $color-primario: #76E1C3
 $color-secundario: #F4686C
 $color-plomo: #636363 
+$primary-color: $color-primario
 
-.boton
-    background-color: $color-secundario
+@mixin cuerpoboton()
     border-radius: 5px
     border: 0px solid
     padding: 10px
@@ -12,9 +12,28 @@ $color-plomo: #636363
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
     text-align: center
     font-family: 'Quicksand', sans-serif
+    outline: none
+    cursor: pointer
+
+.boton
+    background-color: $color-secundario
+    @include cuerpoboton()
+
 .container5
     padding-left: 5%
     padding-right: 5%
 
 .nomostrar
     display: none
+
+.vm--modal
+    padding: 0 20px
+    // margin-right: 10px
+    // margin-left: 10px
+
+.inputstyle
+    border-radius: 10px
+    border: 1px solid $color-secundario
+    padding: 10px
+    width: 90%
+    outline: none

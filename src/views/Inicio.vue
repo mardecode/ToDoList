@@ -1,11 +1,8 @@
 <template lang="pug">
 .inicio
 	Barra
-	br
 	Buscador
-	br
-	br
-	div.creacion
+	.creacion
 		button.boton(@click="showTodoModal") New to-do
 		button.boton(@click="showHabitModal") New Habit
 	h2.container5 To-dos
@@ -13,14 +10,12 @@
 	template(v-for="todo in todos")
 		Todo(:texto="todo.name", :isChecked="todo.check")
 
-
 	h2.container5 Habits
 	template(v-for="h in habits")
 		Todo(:texto="h.name", isChecked=false)
 
 	CreateHabit
 	CreateTodo
-	
 </template>
 
 <script>
@@ -68,8 +63,7 @@ export default {
 @import '@/assets/sass/main'
 .about
 	background-color: $color-primario
-.btnActive
-	background-color: $color-primario
+
 .creacion
 	margin-right: 30px
 	margin-left: 30px

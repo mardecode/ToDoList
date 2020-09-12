@@ -1,21 +1,26 @@
 <template lang="pug">
-    div.crearTodo
-        modal(name='todo-modal' :adaptive='true')
-            h1 Crear nuevo To-Do
-            form(@submit.prevent='submitCreateTodo()')
-                input(placeholder='Nuevo to-do' required v-model="newToDo.name")
-                p Fecha de Finalización
-                input(type='datetime-local' required v-model="newToDo.endDate")
-                button(type='submit') Crear
+.crearTodo
+	modal(name="todo-modal", :adaptive="true")
+		h1 Crear nuevo To-Do
+		form(@submit.prevent="submitCreateTodo()")
+			input.inputstyle(placeholder="Nuevo to-do", required, v-model="newToDo.name")
+			p Fecha de Finalización
+			date-picker(v-model="newToDo.endDate", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha", required)
+			button.boton(type="submit") Crear
+			//- input(type="datetime-local", required, v-model="newToDo.endDate")
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
 import { firebase } from "@/firebase";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 export default {
 	name: "CrearTodo",
+	components: { DatePicker },
 	data() {
 		return {
+			value1: new Date(),
 			newToDo: {
 				name: "",
 				check: false,
@@ -33,7 +38,7 @@ export default {
 			this.$modal.hide("todo-modal");
 		},
 		async submitCreateTodo() {
-			this.newToDo.endDate = firebase.firestore.Timestamp.fromDate(new Date(this.newToDo.endDate));
+			// this.newToDo.endDate = firebase.firestore.Timestamp.fromDate(new Date(this.newToDo.endDate));
 			// this.todos.push(this.newToDo);
 			// console.log(this.newToDo);
 			await this.createTodo(this.newToDo);
@@ -44,3 +49,10 @@ export default {
 	},
 };
 </script>
+
+<style lang="sass">
+@import '@/assets/sass/main'
+.crearTodo
+	button
+		margin-left: 10px
+</style>
