@@ -1,11 +1,10 @@
 <template lang="pug">
-    div.todo.container5
-        
-        i(class='far fa-square todo__check' v-bind:class="{nomostrar:check}" v-on:click="cambiar")
-        i.fas.fa-check-square.todo__check(v-bind:class="{nomostrar:!check}" v-on:click="cambiar")
-        div.todo__item
-            p.todo__item__texto {{texto}}
-            i(class="fas fa-trash todo__item__basura")
+.todo.container5
+	i.far.fa-square.todo__check(v-bind:class="{ nomostrar: check }", v-on:click="cambiar")
+	i.fas.fa-check-square.todo__check(v-bind:class="{ nomostrar: !check }", v-on:click="cambiar")
+	.todo__item
+		p.todo__item__texto {{ texto }}
+		i.fas.fa-trash.todo__item__basura
 </template>
 
 <script>
@@ -13,6 +12,7 @@ import { mapActions } from "vuex";
 export default {
 	name: "Todo",
 	props: {
+		id: String,
 		texto: String,
 		isChecked: Boolean,
 	},
@@ -25,7 +25,8 @@ export default {
 		...mapActions(["checkTodo"]),
 		cambiar() {
 			// console.log("si hace click");
-			this.check = !this.check;
+            this.check = !this.check;
+            this.checkTodo({id:this.id,check: this.check})
 		},
 	},
 };
@@ -55,8 +56,6 @@ export default {
 
         &__basura
             justify-self: end
-
-
 
 .fa-trash
     color: white

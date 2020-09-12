@@ -109,7 +109,8 @@ export default new Vuex.Store({
 					.get();
 				const newlistTodos = [];
 				listTodos.forEach((doc) => {
-					newlistTodos.push(doc.data());
+					// console.log({ id: doc.id, ...doc.data() });
+					newlistTodos.push({ id: doc.id, ...doc.data() });
 				});
 				ctx.commit("setTodos", newlistTodos);
 			} catch (error) {
@@ -124,6 +125,19 @@ export default new Vuex.Store({
 					.doc(this.state.usuario.uid)
 					.collection("list")
 					.add(newTodo);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async checkTodo(context, todo) {
+			try {
+				db.collection("todos")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(todo.id)
+					.update({
+						check: todo.check,
+					});
 			} catch (error) {
 				console.log(error);
 			}

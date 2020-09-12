@@ -8,7 +8,7 @@
 	h2.container5 To-dos
 
 	template(v-for="todo in todos")
-		Todo(:texto="todo.name", :isChecked="todo.check")
+		Todo(:texto="todo.name", :isChecked="todo.check" :id="todo.id")
 
 	h2.container5 Habits
 	template(v-for="h in habits")
