@@ -17,12 +17,6 @@ const routes = [
 		component: () => import(/* webpackChunkName: "about" */ "../views/Inicio.vue"),
 		meta: { requiresAuth: true },
 	},
-	{
-		path: "/editar/:id",
-		name: "Editar",
-		component: () => import(/* webpackChunkName: "editar" */ "../components/Editar.vue"),
-		meta: { requiresAuth: true },
-	},
 ];
 
 const router = new VueRouter({

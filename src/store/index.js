@@ -12,6 +12,7 @@ export default new Vuex.Store({
 		habits: [],
 		todos: [],
 		date: new Date(),
+		itemSelected: [],
 	},
 	getters: {
 		getDateString(state) {
@@ -52,8 +53,18 @@ export default new Vuex.Store({
 		setDeleteItem(state, payload) {
 			state.habits = state.habits.filter((item) => item.id != payload);
 		},
+		setEditItem(state, payload) {
+			state.itemSelected = payload;
+			// console.log("se ingresó a setEditITem");
+			// console.log(state.itemSelected);
+			// console.log("el que no pone prints no sabe programar");
+		},
 	},
 	actions: {
+		callEditItem({ commit }, item) {
+			commit("setEditItem", item);
+		},
+
 		async setUser({ commit }, user) {
 			try {
 				const doc = await db

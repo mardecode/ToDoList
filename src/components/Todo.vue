@@ -3,13 +3,13 @@
 	i.far.fa-square.todo__check(v-bind:class="{ nomostrar: check }", v-on:click="cambiar")
 	i.fas.fa-check-square.todo__check(v-bind:class="{ nomostrar: !check }", v-on:click="cambiar")
 	.todo__item(v-bind:class="{ todo__hecho: check }")
-		p.todo__item__texto(v-on:click="showEditModal(id)") {{ texto }}
+		p.todo__item__texto(v-on:click="showEditModal(item)") {{ texto }}
 		i.fas.fa-trash.todo__item__basura(@click="deleteItemview(id)")
-	Editar
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+import router from "../router";
 
 import Editar from "@/components/Editar.vue";
 
@@ -20,6 +20,7 @@ export default {
 		texto: String,
 		isChecked: Boolean,
 		tipo: String,
+		item: Object,
 	},
 
 	data() {
@@ -27,17 +28,22 @@ export default {
 			check: this.isChecked,
 		};
 	},
+	computed: {
+		...mapState(["itemSelected"]),
+	},
 	components: {
 		Editar,
 	},
 	methods: {
-		...mapActions(["checkTodo", "checkHabit", "deleteTodo", "deleteHabit"]),
-		showEditModal(uid) {
+		...mapActions(["callEditItem", "checkTodo", "checkHabit", "deleteTodo", "deleteHabit"]),
+		showEditModal(todocompleto) {
+			this.callEditItem(todocompleto);
 			this.$modal.show("edit-modal");
-			console.log("haciendo click en texto" + uid);
+			console.log("haciendo click en texto");
+			console.log(todocompleto);
 		},
+
 		deleteItemview(itemid) {
-			// console.log("este es para eliminar " + itemid);
 			if (this.tipo === "todo") {
 				this.deleteTodo(itemid);
 			} else if (this.tipo === "habit") {
@@ -45,7 +51,6 @@ export default {
 			} else {
 				console.log(error);
 			}
-			// this.deleteItem(itemid);
 		},
 		cambiar() {
 			// console.log("si hace click");
