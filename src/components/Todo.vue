@@ -15,6 +15,7 @@ export default {
 		id: String,
 		texto: String,
 		isChecked: Boolean,
+		tipo: String,
 	},
 	data() {
 		return {
@@ -22,11 +23,13 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["checkTodo"]),
+		...mapActions(["checkTodo", "checkHabit"]),
 		cambiar() {
 			// console.log("si hace click");
-            this.check = !this.check;
-            this.checkTodo({id:this.id,check: this.check})
+			this.check = !this.check;
+
+			if (this.tipo === "todo") this.checkTodo({ id: this.id, check: this.check });
+			else if (this.tipo === "habit") this.checkHabit({ id: this.id, check: this.check });
 		},
 	},
 };

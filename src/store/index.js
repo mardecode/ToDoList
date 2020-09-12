@@ -11,6 +11,26 @@ export default new Vuex.Store({
 		usuario: "",
 		habits: [],
 		todos: [],
+		date: new Date(),
+	},
+	getters: {
+		getDateString(state) {
+			return state.date.toISOString().slice(0, 10);
+		},
+		getDateLetra(state) {
+			console.log(state.date.toISOString());
+			const dia = state.date.getDay();
+			if (dia === 0) return "D";
+			else if (dia === 1) return "L";
+			else if (dia === 2) return "M";
+			else if (dia === 3) return "X";
+			else if (dia === 4) return "J";
+			else if (dia === 5) return "V";
+			else if (dia === 6) return "S";
+			else {
+				console.log("ERROR FECHA NO VALIDA ", "getDateLetra()");
+			}
+		},
 	},
 	mutations: {
 		newUser(state, payload) {
@@ -88,11 +108,19 @@ export default new Vuex.Store({
 					.collection("habits")
 					.doc(this.state.usuario.uid)
 					.collection("list")
+					.where("confDays." + ctx.getters.getDateLetra, "==", true)
 					.get();
+
 				const newlistHabits = [];
 				console.log(listHabits);
-				listHabits.forEach((doc) => {
-					newlistHabits.push(doc.data());
+				listHabits.forEach(async (doc) => {
+					const n_habit = await doc.ref
+						.collection("dias")
+						.doc(ctx.getters.getDateString)
+						.get();
+					console.log(n_habit.data());
+					if (n_habit.data()) newlistHabits.push({ id: doc.id, ...doc.data(), check: n_habit.data().check });
+					else newlistHabits.push({ id: doc.id, ...doc.data(), check: false });
 				});
 				ctx.commit("setHabits", newlistHabits);
 			} catch (error) {
@@ -138,6 +166,27 @@ export default new Vuex.Store({
 					.update({
 						check: todo.check,
 					});
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async checkHabit(context, habit) {
+			console.log(habit, context.getters.getDateString);
+			try {
+				//Solo sobrescribe "check"
+				await db
+					.collection("habits")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(habit.id)
+					.collection("dias")
+					.doc(context.getters.getDateString)
+					.set(
+						{
+							check: habit.check,
+						},
+						{ merge: true }
+					);
 			} catch (error) {
 				console.log(error);
 			}
