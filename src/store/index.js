@@ -46,6 +46,12 @@ export default new Vuex.Store({
 		setTodos(state, payload) {
 			state.todos = payload;
 		},
+		setDeleteTodo(state, payload) {
+			state.todos = state.todos.filter((item) => item.id != payload);
+		},
+		setDeleteItem(state, payload) {
+			state.habits = state.habits.filter((item) => item.id != payload);
+		},
 	},
 	actions: {
 		async setUser({ commit }, user) {
@@ -187,6 +193,34 @@ export default new Vuex.Store({
 						},
 						{ merge: true }
 					);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async deleteTodo({ commit }, itemid) {
+			// console.log("llegó correctamente" + itemid);
+			try {
+				await db
+					.collection("todos")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(itemid)
+					.delete();
+				commit("setDeleteTodo", itemid);
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async deleteHabit({ commit }, itemid) {
+			// console.log("llegó correctamente" + itemid);
+			try {
+				await db
+					.collection("habits")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(itemid)
+					.delete();
+				commit("setDeleteItem", itemid);
 			} catch (error) {
 				console.log(error);
 			}

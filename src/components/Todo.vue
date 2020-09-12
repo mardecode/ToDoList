@@ -2,13 +2,17 @@
 .todo.container5
 	i.far.fa-square.todo__check(v-bind:class="{ nomostrar: check }", v-on:click="cambiar")
 	i.fas.fa-check-square.todo__check(v-bind:class="{ nomostrar: !check }", v-on:click="cambiar")
-	.todo__item
-		p.todo__item__texto {{ texto }}
-		i.fas.fa-trash.todo__item__basura
+	.todo__item(v-bind:class="{ todo__hecho: check }")
+		p.todo__item__texto(v-on:click="showEditModal(id)") {{ texto }}
+		i.fas.fa-trash.todo__item__basura(@click="deleteItemview(id)")
+	Editar
 </template>
 
 <script>
 import { mapActions } from "vuex";
+
+import Editar from "@/components/Editar.vue";
+
 export default {
 	name: "Todo",
 	props: {
@@ -17,13 +21,32 @@ export default {
 		isChecked: Boolean,
 		tipo: String,
 	},
+
 	data() {
 		return {
 			check: this.isChecked,
 		};
 	},
+	components: {
+		Editar,
+	},
 	methods: {
-		...mapActions(["checkTodo", "checkHabit"]),
+		...mapActions(["checkTodo", "checkHabit", "deleteTodo", "deleteHabit"]),
+		showEditModal(uid) {
+			this.$modal.show("edit-modal");
+			console.log("haciendo click en texto" + uid);
+		},
+		deleteItemview(itemid) {
+			// console.log("este es para eliminar " + itemid);
+			if (this.tipo === "todo") {
+				this.deleteTodo(itemid);
+			} else if (this.tipo === "habit") {
+				this.deleteHabit(itemid);
+			} else {
+				console.log(error);
+			}
+			// this.deleteItem(itemid);
+		},
 		cambiar() {
 			// console.log("si hace click");
 			this.check = !this.check;
@@ -39,30 +62,33 @@ export default {
 @import '@/assets/sass/main'
 
 .todo
-    display: flex
+	display: flex
     // text-align: center
-    align-items: center
-    margin-bottom: 5px
-    p
-        margin: 0
-    &__check
-        color: $color-primario
-    &__item
-        margin-left: 10px
-        width: 100%
-        display: grid
-        grid-template-columns: 80% 20%
-        align-items: center
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
-        border-radius: 10px
-        padding: 6px
+	align-items: center
+	margin-bottom: 5px
+	&__hecho
+		// color: red
+		opacity: 0.5
+	p
+		margin: 0
+	&__check
+		color: $color-primario
+	&__item
+		margin-left: 10px
+		width: 100%
+		display: grid
+		grid-template-columns: 80% 20%
+		align-items: center
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+		border-radius: 10px
+		padding: 6px
 
-        &__basura
-            justify-self: end
+		&__basura
+			justify-self: end
 
 .fa-trash
-    color: white
-    background-color: $color-secundario
-    padding: 6px
-    border-radius: 14px
+	color: white
+	background-color: $color-secundario
+	padding: 6px
+	border-radius: 14px
 </style>

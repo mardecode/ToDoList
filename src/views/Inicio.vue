@@ -19,11 +19,12 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 import Barra from "@/components/Barra.vue";
 import Buscador from "@/components/Buscador.vue";
 import CreateHabit from "@/components/CreateHabit.vue";
 import CreateTodo from "@/components/CreateTodo.vue";
-import { mapState, mapActions } from "vuex";
 import Todo from "@/components/Todo.vue";
 
 export default {
