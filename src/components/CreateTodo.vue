@@ -38,9 +38,6 @@ export default {
 			this.$modal.hide("todo-modal");
 		},
 		async submitCreateTodo() {
-			// this.newToDo.endDate = firebase.firestore.Timestamp.fromDate(new Date(this.newToDo.endDate));
-			// this.todos.push(this.newToDo);
-			// console.log(this.newToDo);
 			await this.createTodo(this.newToDo);
 			this.hideTodoModal();
 			this.newToDo.name = "";

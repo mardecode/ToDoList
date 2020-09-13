@@ -12,9 +12,12 @@ export default new Vuex.Store({
 		habits: [],
 		todos: [],
 		date: new Date(),
-		itemSelected: [],
+		itemSelected: { endDate: firebase.firestore.Timestamp.fromDate(new Date()) },
 	},
 	getters: {
+		getDateTodo(state) {
+			return state.itemSelected.endDate.toDate();
+		},
 		getDateString(state) {
 			return state.date.toISOString().slice(0, 10);
 		},
@@ -161,6 +164,18 @@ export default new Vuex.Store({
 			} catch (error) {
 				console.log(error);
 				console.log("hola hola");
+			}
+		},
+		async editTodo(context) {
+			try {
+				await db
+					.collection("todos")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(this.state.itemSelected.id)
+					.update({ name: this.state.itemSelected.name, endDate: this.state.itemSelected.endDate });
+			} catch (error) {
+				console.log(error);
 			}
 		},
 		async createTodo(context, newTodo) {
