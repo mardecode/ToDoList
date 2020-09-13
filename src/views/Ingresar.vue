@@ -11,7 +11,7 @@
       span Entrar con Google
 
     p.home__aclaracion Aún se encuentra en desarrollo
-    p.home__posdata Hecho con <3 by programandoando
+    p.home__posdata Hecho con <3
 </template>
 
 <script>
