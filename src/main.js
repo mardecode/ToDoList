@@ -9,16 +9,17 @@ Vue.config.productionTip = false;
 Vue.use(VModal);
 
 auth.onAuthStateChanged((user) => {
-	if (user) {
-		store.commit("newUser", user);
-		store.dispatch("setUser", user);
-	} else {
-		store.commit("newUser", user);
-		// await store.dispatch("setUser", user);
-	}
+	
+	store.commit("newUser", user);
 	new Vue({
 		router,
 		store,
 		render: (h) => h(App),
 	}).$mount("#app");
+	
+	if (user) {	
+		store.dispatch("setUser", user);
+	}
+
+	
 });
