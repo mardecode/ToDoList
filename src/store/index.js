@@ -12,7 +12,7 @@ export default new Vuex.Store({
 		habits: [],
 		todos: [],
 		date: new Date(),
-		itemSelected: { endDate: firebase.firestore.Timestamp.fromDate(new Date()) },
+		itemSelected: { endDate: firebase.firestore.Timestamp.fromDate(new Date()), existe: false },
 	},
 	getters: {
 		getDateTodo(state) {
@@ -124,21 +124,27 @@ export default new Vuex.Store({
 		async getHabits(ctx) {
 			try {
 				// console.log("aaaaaaa", this.state.usuario.uid);
+
+				//Obtiene los Referencias a los habitos segun el dia de la semana ( getDateLetra )
 				const listHabits = await db
 					.collection("habits")
 					.doc(this.state.usuario.uid)
 					.collection("list")
 					.where("confDays." + ctx.getters.getDateLetra, "==", true)
 					.get();
+				
+				console.log(listHabits);
 
 				const newlistHabits = [];
-				console.log(listHabits);
+
+				//obtiene una referencia para el día actual ( getDateString [fecha] )
+
 				listHabits.forEach(async (doc) => {
 					const n_habit = await doc.ref
 						.collection("dias")
 						.doc(ctx.getters.getDateString)
 						.get();
-					console.log(n_habit.data());
+					// console.log(n_habit.data());
 					if (n_habit.data()) newlistHabits.push({ id: doc.id, ...doc.data(), check: n_habit.data().check });
 					else newlistHabits.push({ id: doc.id, ...doc.data(), check: false });
 				});
@@ -174,6 +180,20 @@ export default new Vuex.Store({
 					.collection("list")
 					.doc(this.state.itemSelected.id)
 					.update({ name: this.state.itemSelected.name, endDate: this.state.itemSelected.endDate });
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		async editHabit(context) {
+			try {
+				// console.log(context.state.itemSelected);
+				await db
+					.collection("habits")
+					.doc(this.state.usuario.uid)
+					.collection("list")
+					.doc(this.state.itemSelected.id)
+					.update(this.state.itemSelected);
+				// console.log(createdHabit);
 			} catch (error) {
 				console.log(error);
 			}

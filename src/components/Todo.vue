@@ -11,7 +11,7 @@
 import { mapActions, mapState } from "vuex";
 import router from "../router";
 
-import Editar from "@/components/Editar.vue";
+// import Editar from "@/components/Editar.vue";
 
 export default {
 	name: "Todo",
@@ -32,13 +32,18 @@ export default {
 		...mapState(["itemSelected"]),
 	},
 	components: {
-		Editar,
+		// Editar,
 	},
 	methods: {
 		...mapActions(["callEditItem", "checkTodo", "checkHabit", "deleteTodo", "deleteHabit"]),
 		showEditModal(todocompleto) {
-			this.callEditItem(todocompleto);
-			this.$modal.show("edit-modal");
+			if (this.tipo === "todo") {
+				this.callEditItem({ tipo: "todo", existe: true, ...todocompleto });
+				this.$modal.show("edit-modal");
+			} else if (this.tipo === "habit") {
+				this.callEditItem({ tipo: "habit", existe: true, ...todocompleto });
+				this.$modal.show("edit-habit-modal");
+			}
 			console.log("haciendo click en texto");
 			console.log(todocompleto);
 		},

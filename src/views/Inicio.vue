@@ -12,16 +12,19 @@
 
 	h2.container5 Habits
 	template(v-for="h in habits")
-		Todo(:texto="h.name", :isChecked="h.check", :id="h.id", tipo="habit")
+		Todo(:texto="h.name", :isChecked="h.check", :id="h.id", tipo="habit", :item="h")
 
 	CreateHabit
 	CreateTodo
-	Editar
+
+	EditarTodo
+	EditarHabit
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Editar from "@/components/Editar.vue";
+import EditarTodo from "@/components/EditarTodo.vue";
+import EditarHabit from "@/components/EditarHabit.vue";
 
 import Barra from "@/components/Barra.vue";
 import Buscador from "@/components/Buscador.vue";
@@ -40,7 +43,8 @@ export default {
 		Todo,
 		CreateHabit,
 		CreateTodo,
-		Editar,
+		EditarTodo,
+		EditarHabit,
 	},
 
 	mounted() {

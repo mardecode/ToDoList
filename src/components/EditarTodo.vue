@@ -1,6 +1,6 @@
 <template lang="pug">
 .editarTodo
-	modal(name="edit-modal", :adaptive="true", :height="200")
+	modal(name="edit-modal", :adaptive="true", :height="200", v-if="itemSelected.existe && itemSelected.tipo === 'todo'")
 		h1 
 		form(@submit.prevent="submitEditTodo()")
 			input.inputstyle(v-model="itemSelected.name", required)
@@ -16,7 +16,7 @@ import { firebase } from "@/firebase";
 
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
-	name: "Editar",
+	name: "EditarTodo",
 	data() {
 		return {
 			// fecha: new Date(),
