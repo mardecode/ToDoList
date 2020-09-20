@@ -21,8 +21,8 @@
 
 			//- input(type="time")
 			//- input(type="date", v-model="newHabit.fechaInicio", required)
-			date-picker(v-model="newHabit.fechaInicio", format="YYYY-MM-DD", type="date", placeholder="Inicio", required)
-			date-picker(v-model="newHabit.fechaFin", format="YYYY-MM-DD", type="date", placeholder="Fin", required)
+			date-picker(v-model="newHabit.fechaInicio", format="YYYY-MM-DD", type="date", placeholder="Inicio", required, :editable="false", :clearable="false")
+			date-picker(v-model="newHabit.fechaFin", format="YYYY-MM-DD", type="date", placeholder="Fin", required, :editable="false", :clearable="false")
 			//- input(type="date", v-model="newHabit.fechaFin", required)
 
 			button.boton(type="submit") Guardar

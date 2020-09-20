@@ -11,7 +11,8 @@ export default new Vuex.Store({
 		usuario: "",
 		habits: [],
 		todos: [],
-		date: new Date(),
+		// today: new Date(new Date().setHours(0, 0, 0, 0)),
+		date: new Date(new Date().setHours(0, 0, 0, 0)),
 		itemSelected: { endDate: firebase.firestore.Timestamp.fromDate(new Date()), existe: false },
 	},
 	getters: {
@@ -132,7 +133,7 @@ export default new Vuex.Store({
 					.collection("list")
 					.where("confDays." + ctx.getters.getDateLetra, "==", true)
 					.get();
-				
+
 				console.log(listHabits);
 
 				const newlistHabits = [];
@@ -155,10 +156,12 @@ export default new Vuex.Store({
 		},
 		async getTodos(ctx) {
 			try {
+				// console.log(this.state.today);
 				const listTodos = await db
 					.collection("todos")
 					.doc(this.state.usuario.uid)
 					.collection("list")
+					.where("endDate", ">=", this.state.date)
 					.orderBy("endDate", "asc")
 					.get();
 				const newlistTodos = [];

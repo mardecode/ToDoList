@@ -5,7 +5,7 @@
 		form(@submit.prevent="submitEditTodo()")
 			input.inputstyle(v-model="itemSelected.name", required)
 			p Fecha de finalización
-			date-picker(v-model="fechaa", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha", required)
+			date-picker(v-model="fechaa", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha", required, :editable="false", :clearable="false")
 			button.boton(type="submit") Editar
 </template>
 

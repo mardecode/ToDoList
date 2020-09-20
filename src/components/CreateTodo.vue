@@ -5,7 +5,7 @@
 		form(@submit.prevent="submitCreateTodo()")
 			input.inputstyle(placeholder="Nuevo to-do", required, v-model="newToDo.name")
 			p Fecha de Finalización
-			date-picker(v-model="newToDo.endDate", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha", required)
+			date-picker(v-model="newToDo.endDate", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha", required, :editable="false", :clearable="false")
 			button.boton(type="submit") Crear
 			//- input(type="datetime-local", required, v-model="newToDo.endDate")
 </template>
