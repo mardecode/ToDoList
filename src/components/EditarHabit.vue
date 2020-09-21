@@ -33,7 +33,7 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import { firebase } from "@/firebase";
 
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
 	name: "EditarHabit",
 	data() {
@@ -87,4 +87,4 @@ export default {
 .editarTodo
 	button
 		margin-left: 10px
-</style>	
+</style>

@@ -19,8 +19,7 @@ export default {
 		...mapActions(["callSetDate", "getTodos", "getHabits"]),
 		async changeDate(fecha) {
 			await this.callSetDate(fecha);
-			// console.log("hola bola");
-			// console.log(fecha);
+
 			await this.getTodos();
 			await this.getHabits();
 		},

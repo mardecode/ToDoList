@@ -15,8 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
-import router from "@/router";
+import { mapActions } from "vuex";
 export default {
 	name: "Ingresar",
 	methods: {

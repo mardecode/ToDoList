@@ -9,9 +9,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import router from "../router";
-
-// import Editar from "@/components/Editar.vue";
 
 export default {
 	name: "Todo",
@@ -54,7 +51,7 @@ export default {
 			} else if (this.tipo === "habit") {
 				this.deleteHabit(itemid);
 			} else {
-				console.log(error);
+				console.log("error: tipo no conocido");
 			}
 		},
 		cambiar() {

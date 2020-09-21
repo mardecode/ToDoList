@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { firebase, auth, db } from "@/firebase";
+import { firebase, db } from "@/firebase";
 
 import router from "@/router";
 
@@ -188,7 +188,7 @@ export default new Vuex.Store({
 				console.log("hola hola");
 			}
 		},
-		async editTodo(context) {
+		async editTodo() {
 			try {
 				await db
 					.collection("todos")
@@ -200,7 +200,7 @@ export default new Vuex.Store({
 				console.log(error);
 			}
 		},
-		async editHabit(context) {
+		async editHabit() {
 			try {
 				// console.log(context.state.itemSelected);
 				await db
@@ -214,9 +214,9 @@ export default new Vuex.Store({
 				console.log(error);
 			}
 		},
-		async createTodo(context, newTodo) {
+		async createTodo(newTodo) {
 			try {
-				const createTodo = await db
+				await db
 					.collection("todos")
 					.doc(this.state.usuario.uid)
 					.collection("list")
