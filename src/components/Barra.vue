@@ -1,11 +1,13 @@
 <template lang="pug">
 .barra
-	p Cambiar fecha
-	date-picker(v-model="value1", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha")
+	p {{value1}}
+	date-picker( @input="changeDate(value1)" v-model="value1", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha")
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
+import { mapActions } from "vuex";
+
 export default {
 	name: "Barra",
 	components: { DatePicker },
@@ -13,6 +15,15 @@ export default {
 		return {
 			value1: new Date(),
 		};
+	},
+	methods: {
+		...mapActions(["callSetDate", "getTodos"]),
+		async changeDate(fecha) {
+			await this.callSetDate(fecha);
+			// console.log("hola bola");
+			// console.log(fecha);
+			await this.getTodos();
+		},
 	},
 };
 </script>

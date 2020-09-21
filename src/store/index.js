@@ -63,10 +63,16 @@ export default new Vuex.Store({
 			// console.log(state.itemSelected);
 			// console.log("el que no pone prints no sabe programar");
 		},
+		setDate(state, payload) {
+			state.date = payload;
+		},
 	},
 	actions: {
 		callEditItem({ commit }, item) {
 			commit("setEditItem", item);
+		},
+		callSetDate({ commit }, payload) {
+			commit("setDate", payload);
 		},
 
 		async setUser({ commit }, user) {
