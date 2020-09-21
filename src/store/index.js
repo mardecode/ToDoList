@@ -172,8 +172,12 @@ export default new Vuex.Store({
 					.get();
 				const newlistTodos = [];
 				listTodos.forEach((doc) => {
-					// console.log({ id: doc.id, ...doc.data() });
-					newlistTodos.push({ id: doc.id, ...doc.data() });
+					if (doc.data().startDate.toDate() <= this.state.date) {
+						console.log(doc.data().startDate.toDate());
+						console.log(this.state.date);
+						console.log("++++++++");
+						newlistTodos.push({ id: doc.id, ...doc.data() });
+					}
 				});
 				ctx.commit("setTodos", newlistTodos);
 			} catch (error) {
