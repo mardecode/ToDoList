@@ -8,10 +8,8 @@
   </div>
 </template>
 
-<style lang="sass">
-  
+<style lang="sass">  
     .router-link-exact-active
       color: #42b983
-
 
 </style>

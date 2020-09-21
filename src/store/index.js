@@ -274,6 +274,12 @@ export default new Vuex.Store({
 				console.log(error);
 			}
 		},
+
+		async logout() {
+			await firebase.auth().signOut();
+
+			router.push("/ingresar");
+		},
 	},
 
 	modules: {},

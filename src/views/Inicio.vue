@@ -19,6 +19,8 @@
 
 	EditarTodo
 	EditarHabit
+
+	h4.logout(@click="logout()") Logout
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
 	},
 
 	methods: {
-		...mapActions(["getHabits", "getTodos"]),
+		...mapActions(["getHabits", "getTodos", "logout"]),
 		showHabitModal() {
 			this.$modal.show("habit-modal");
 		},
@@ -80,4 +82,11 @@ export default {
 	// justify-items: center
 	align-items: center
 	grid-gap: 15px
+
+.logout
+	position: fixed
+	bottom: 5px
+	display: flex
+	width: 100%
+	justify-content: center
 </style>
