@@ -1,7 +1,8 @@
 <template lang="pug">
 .inicio
 	Barra
-	Buscador
+	//- Buscador
+	br
 	.creacion
 		button.boton(@click="showTodoModal") New to-do
 		button.boton(@click="showHabitModal") New Habit

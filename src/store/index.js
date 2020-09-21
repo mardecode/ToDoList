@@ -138,6 +138,7 @@ export default new Vuex.Store({
 					.doc(this.state.usuario.uid)
 					.collection("list")
 					.where("confDays." + ctx.getters.getDateLetra, "==", true)
+					// .where("fechaFin", ">=", this.state.date)
 					.get();
 
 				console.log(listHabits);
@@ -147,13 +148,15 @@ export default new Vuex.Store({
 				//obtiene una referencia para el día actual ( getDateString [fecha] )
 
 				listHabits.forEach(async (doc) => {
-					const n_habit = await doc.ref
-						.collection("dias")
-						.doc(ctx.getters.getDateString)
-						.get();
-					// console.log(n_habit.data());
-					if (n_habit.data()) newlistHabits.push({ id: doc.id, ...doc.data(), check: n_habit.data().check });
-					else newlistHabits.push({ id: doc.id, ...doc.data(), check: false });
+					if (doc.data().fechaInicio.toDate() <= this.state.date && doc.data().fechaFin.toDate() >= this.state.date) {
+						const n_habit = await doc.ref
+							.collection("dias")
+							.doc(ctx.getters.getDateString)
+							.get();
+						// console.log("este es el data", n_habit.data());
+						if (n_habit.data()) newlistHabits.push({ id: doc.id, ...doc.data(), check: n_habit.data().check });
+						else newlistHabits.push({ id: doc.id, ...doc.data(), check: false });
+					}
 				});
 				ctx.commit("setHabits", newlistHabits);
 			} catch (error) {
@@ -173,9 +176,9 @@ export default new Vuex.Store({
 				const newlistTodos = [];
 				listTodos.forEach((doc) => {
 					if (doc.data().startDate.toDate() <= this.state.date) {
-						console.log(doc.data().startDate.toDate());
-						console.log(this.state.date);
-						console.log("++++++++");
+						// console.log(doc.data().startDate.toDate());
+						// console.log(this.state.date);
+						// console.log("++++++++");
 						newlistTodos.push({ id: doc.id, ...doc.data() });
 					}
 				});

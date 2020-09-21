@@ -1,7 +1,6 @@
 <template lang="pug">
 .barra
-	p {{value1}}
-	date-picker( @input="changeDate(value1)" v-model="value1", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha")
+	date-picker( @input="changeDate(value1)" v-model="value1", format="YYYY-MM-DD", type="date", placeholder="Seleccionar fecha"  :editable="false", :clearable="false")
 </template>
 <script>
 import DatePicker from "vue2-datepicker";
@@ -17,12 +16,13 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["callSetDate", "getTodos"]),
+		...mapActions(["callSetDate", "getTodos", "getHabits"]),
 		async changeDate(fecha) {
 			await this.callSetDate(fecha);
 			// console.log("hola bola");
 			// console.log(fecha);
 			await this.getTodos();
+			await this.getHabits();
 		},
 	},
 };
@@ -36,6 +36,7 @@ export default {
     text-align: center
     background-color: $color-primario
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
+
     input
         // background-color: $color-primario
         border: 0 solid
